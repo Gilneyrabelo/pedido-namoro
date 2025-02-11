@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedido Especial</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(45deg, #ff1493, #ff69b4, #ffb6c1);
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            color: white;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: pulse 2s infinite;
+        }
+
+        .buttons {
+            margin-top: 30px;
+            position: relative;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+        }
+
+        #btnSim {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        #btnNao {
+            background-color: #f44336;
+            color: white;
+            position: absolute;
+            transition: all 0.5s ease;
+        }
+
+        #certidao {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            max-width: 500px;
+            margin-top: 20px;
+            animation: aparecer 1s ease;
+        }
+
+        .coracoes {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .coracao {
+            position: absolute;
+            font-size: 24px;
+            animation: flutuar 3s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes flutuar {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes aparecer {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="coracoes" id="coracoes"></div>
+    
+    <div class="container">
+        <h1>💖 Você quer namorar comigo? 💖</h1>
+        
+        <div class="buttons">
+            <button id="btnSim" onclick="mostrarCertidao()">SIM</button>
+            <button id="btnNao" onmouseover="fugir()">NÃO</button>
+        </div>
+
+        <div id="certidao">
+            <h2>📜 Certidão de Namoro</h2>
+            <p>A partir desta data, <strong id="data"></strong>,<br>
+            declaramos oficialmente nosso amor e iniciamos<br>
+            nosso relacionamento oficial! 💍</p>
+            <p>_________________________<br>
+            Assinatura do Amor 💌</p>
+        </div>
+    </div>
+
+    <script>
+        function fugir() {
+            const btnNao = document.getElementById('btnNao');
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 100);
+            btnNao.style.transform = `translate(${x - 50}px, ${y - 50}px)`;
+        }
+
+        function mostrarCertidao() {
+            document.getElementById('certidao').style.display = 'block';
+            document.querySelector('h1').style.display = 'none';
+            document.querySelector('.buttons').style.display = 'none';
+            document.getElementById('data').textContent = new Date().toLocaleDateString();
+            criarCoracoes();
+        }
+
+        function criarCoracoes() {
+            const coracoes = document.getElementById('coracoes');
+            for (let i = 0; i < 50; i++) {
+                const coracao = document.createElement('div');
+                coracao.className = 'coracao';
+                coracao.innerHTML = '💖';
+                coracao.style.left = Math.random() * 100 + 'vw';
+                coracao.style.animationDelay = Math.random() * 2 + 's';
+                coracoes.appendChild(coracao);
+            }
+        }
+    </script>
+</body>
+</html>
